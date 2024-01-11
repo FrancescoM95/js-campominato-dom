@@ -31,6 +31,22 @@ const createCell = (cellNumber, size) => {
     return newCell;
 };
 
+
+// Funzione per creare 16 bombe 
+const createBombs = max => {
+    let bombs = [];
+
+    while (bombs.length < 16) {
+        let randomNumber = Math.floor(Math.random() * max) + 1;
+        if (!bombs.includes(randomNumber)) {
+            bombs.push(randomNumber);
+        }
+    }
+
+    return bombs;
+}
+
+
 // All'invio del form sul viene creata la griglia con un numero di celle variabile in base alla scelta dell'utente
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -57,6 +73,11 @@ form.addEventListener('submit', (e) => {
     }
 
     const totalCells = rows * cols;
+
+    // Viene invocata la funzione per generare le bombe e i risultati vengono stampati in console
+    const bombs = createBombs(totalCells);
+    console.log("Numeri casuali generati:", bombs);
+
 
     for (let i = 1; i <= totalCells; i++) {
         const cell = createCell(i, selectedLevel);
