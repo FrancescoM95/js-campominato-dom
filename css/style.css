@@ -61,6 +61,10 @@ h1 {
     cursor: not-allowed;
 }
 
+.cell.clicked.bomb {
+    background-color: red;
+}
+
 #level {
     height: 30px;
     width: 100px;
