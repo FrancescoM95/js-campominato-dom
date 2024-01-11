@@ -36,7 +36,13 @@ const createCell = (cellNumber, size) => {
 };
 
 
-// Funzione per creare TOT bombe 
+
+/**
+ * Funzione per creare TOT bombe che hanno numeri casuali da 1 a TOT (tutti diversi tra loro)
+ * @param {number} max Numero che rappresenta la quantità totale di celle e di conseguenza il numero massimo per la randomizzazione numeri per le bombe
+ * @param {number} numOfBombs Il numero di bombe da generare
+ * @returns {Array} Restituisce un array con TOT numeri per le bombe
+ */
 const createBombs = (max, numOfBombs) => {
     let bombs = [];
 
@@ -46,12 +52,17 @@ const createBombs = (max, numOfBombs) => {
             bombs.push(randomNumber);
         }
     }
-
     return bombs;
 }
 
-// Funizone per terminare il gioco
 
+
+/**
+ * Funizone per terminare il gioco e mostrare in pagina il messaggio
+ * @param {boolean} hasWon Valore che indica se l'utente ha vinto oppure no(true se ha vinto, false se ha perso)
+ * @param {number} score Rappresenta il punteggio raggiunto dall'utente
+ * @returns {string} message Restituisce il messaggio corrispondente
+ */
 const endGame = (hasWon, score) => {
     const message = hasWon
         ? `Complimenti! Hai vinto! Hai totalizzato ${score} punti.`
@@ -60,8 +71,12 @@ const endGame = (hasWon, score) => {
     return messageField.innerText = message;
 }
 
-// Funzione per scoprire tutte le celle
 
+
+/**
+ * Funzione per colorare tutte le celle e le bombe istantaneamente
+ * @param {Array} bombs Array contenente le bombe
+ */
 const revealAllCell = (bombs) => {
     const cells = document.querySelectorAll('.cell');
 
@@ -83,6 +98,7 @@ const revealAllCell = (bombs) => {
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    //! Svuoto griglia e messaggio 
     grid.innerText = '';
     messageField.innerText = '';
     play.innerText = 'Ricomincia';
@@ -91,10 +107,11 @@ form.addEventListener('submit', (e) => {
     const selectedLevel = parseInt(level.value);
     let rows;
     let cols;
-    let numOfBombs = 2;
+    let numOfBombs = 16;
     let score = 0;
     scoreElement.innerText = score;
 
+    // Selezione del livello
     if (selectedLevel === 1) {
         rows = 10;
         cols = 10;
@@ -110,22 +127,22 @@ form.addEventListener('submit', (e) => {
     let maxPoints = totalCells - numOfBombs
 
 
-    // Viene invocata la funzione per generare le bombe e i risultati vengono stampati in console
+    // Viene invocata la funzione per generare le bombe e stamparle in console
     const bombs = createBombs(totalCells, numOfBombs);
     console.log("Numeri casuali generati:", bombs);
 
-
+    //Viene invocata la funzione per creare le celle attraverso un ciclo
     for (let i = 1; i <= totalCells; i++) {
         const cell = createCell(i, selectedLevel);
         grid.appendChild(cell);
 
-        // Al click, la cella si colora d'azzurro e stampiamo il numero corrispondente in console e mostriamo il punteggio in pagina
+        // Al click, la cella si colora d'azzurro, stampiamo il numero corrispondente in console e aumentiamo il punteggio totale
         cell.addEventListener('click', () => {
             if (cell.classList.contains('clicked')) return;
             cell.classList.add('clicked');
             console.log('Il numero della cella è:', i);
 
-            // Verifico se è stata cliccata una bomba
+            // Se viene cliccata una bomba la cella si colora di rosso e il gioco termina
             const hasHitBomb = bombs.includes(i);
 
             if (hasHitBomb) {
