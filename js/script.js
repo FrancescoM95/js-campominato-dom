@@ -6,6 +6,7 @@ const play = document.getElementById('play');
 const grid = document.getElementById('grid');
 const form = document.getElementById('form');
 const level = document.getElementById('level');
+const scoreElement = document.getElementById('score');
 
 
 //* FUNZIONI
@@ -41,6 +42,8 @@ form.addEventListener('submit', (e) => {
     const selectedLevel = parseInt(level.value);
     let rows;
     let cols;
+    let score = 0;
+    scoreElement.innerText = score;
 
     if (selectedLevel === 1) {
         rows = 10;
@@ -59,11 +62,13 @@ form.addEventListener('submit', (e) => {
         const cell = createCell(i, selectedLevel);
         grid.appendChild(cell);
 
-        // Al click, la cella si colora d'azzurro e stampiamo il numero corrispondente in console
+        // Al click, la cella si colora d'azzurro e stampiamo il numero corrispondente in console e mostriamo il punteggio in pagina
         cell.addEventListener('click', () => {
             if (cell.classList.contains('clicked')) return;
             cell.classList.add('clicked');
             console.log('Il numero della cella è:', i);
+            ++score;
+            scoreElement.innerText = score;
         });
     }
 
