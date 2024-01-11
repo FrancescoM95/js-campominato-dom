@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Francesco Mongiello">
+    <meta name="description" content="Campo Minato">
+    <title>Campo Minato</title>
+
+    <!--§ icon  -->
+    <link rel="icon" href="Logo.png" type="img/png">
+
+    <!--§ font-awesome -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'
+        integrity='sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=='
+        crossorigin='anonymous'>
+
+    <!--§ Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!--§ stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <script defer src="js/script.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar bg-body-tertiary py-3">
+            <div class="container-fluid">
+                <div class="d-flex gap-3 mx-2">
+                    <img src="Logo.png" alt="Logo" class="d-inline-block">
+                    <h1>Campo Minato</h1>
+                </div>
+                <div class="mx-2">
+                    <form id="form">
+                        <label for="level">Grandezza campo minato:</label>
+                        <select name="level" id="level">
+                            <option value="1">Grande</option>
+                            <option value="2">Medio</option>
+                            <option value="3">Piccolo</option>
+                        </select>
+                        <button type="submit" id="play">Play</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container" id="container">
+            <div class="grid" id="grid"></div>
+        </div>
+    </main>
+
+    <footer class="bg-body-tertiary">
+        <div class="container-fluid">
+            <p class="m-0 mx-2">
+                Made with &hearts; by <a href="#">Boolean</a>
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>
