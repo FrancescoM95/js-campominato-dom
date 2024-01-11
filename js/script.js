@@ -46,6 +46,28 @@ const createBombs = max => {
     return bombs;
 }
 
+// Funizone per terminare il gioco
+
+const endGame = (hasWon, score) => {
+    const message = hasWon
+        ? 'Complimenti! Hai vinto!'
+        : `Hai perso! Hai totalizzato ${score} punti.`;
+    return console.log(message);
+}
+
+// Funzione per scoprire tutte le celle
+
+const revealAllCell = (bombs) => {
+    const cells = document.querySelectorAll('.cell');
+
+    for (let cell of cells) {
+        cell.classList.add('clicked');
+        if (bombs.includes(parseInt(cell.innerText))) {
+            cell.classList.add('bomb');
+        }
+    }
+}
+
 
 // All'invio del form sul viene creata la griglia con un numero di celle variabile in base alla scelta dell'utente
 form.addEventListener('submit', (e) => {
@@ -88,9 +110,18 @@ form.addEventListener('submit', (e) => {
             if (cell.classList.contains('clicked')) return;
             cell.classList.add('clicked');
             console.log('Il numero della cella è:', i);
-            ++score;
-            scoreElement.innerText = score;
+
+            // Verifico se è stata cliccata una bomba
+            const hasHitBomb = bombs.includes(i);
+
+            if (hasHitBomb) {
+                cell.classList.add('bomb');
+                hasWon = false;
+                endGame(hasWon, score);
+                revealAllCell(bombs);
+            } else {
+                scoreElement.innerText = ++score;
+            }
         });
     }
-
 });
