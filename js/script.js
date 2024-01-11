@@ -8,6 +8,7 @@ const form = document.getElementById('form');
 const level = document.getElementById('level');
 const scoreElement = document.getElementById('score');
 const messageField = document.getElementById('message');
+const boxScore = document.getElementById('score-box');
 
 
 
@@ -101,6 +102,7 @@ form.addEventListener('submit', (e) => {
     //! Svuoto griglia e messaggio 
     grid.innerText = '';
     messageField.innerText = '';
+    boxScore.classList.remove('d-none')
     play.innerText = 'Ricomincia';
 
     // Dati di partenza
