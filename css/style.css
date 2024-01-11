@@ -85,3 +85,8 @@ h1 {
     border-radius: 5px;
     border: 2px solid black;
 }
+
+nav p {
+    margin: 0;
+    font-weight: 600;
+}

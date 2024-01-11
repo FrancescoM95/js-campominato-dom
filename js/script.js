@@ -7,9 +7,13 @@ const grid = document.getElementById('grid');
 const form = document.getElementById('form');
 const level = document.getElementById('level');
 const scoreElement = document.getElementById('score');
+const messageField = document.getElementById('message');
 
 
+
+//*-----------------------------------------
 //* FUNZIONI
+//*-----------------------------------------
 
 /**
  * Funzione per creare una cella
@@ -32,11 +36,11 @@ const createCell = (cellNumber, size) => {
 };
 
 
-// Funzione per creare 16 bombe 
-const createBombs = max => {
+// Funzione per creare TOT bombe 
+const createBombs = (max, numOfBombs) => {
     let bombs = [];
 
-    while (bombs.length < 16) {
+    while (bombs.length < numOfBombs) {
         let randomNumber = Math.floor(Math.random() * max) + 1;
         if (!bombs.includes(randomNumber)) {
             bombs.push(randomNumber);
@@ -50,9 +54,10 @@ const createBombs = max => {
 
 const endGame = (hasWon, score) => {
     const message = hasWon
-        ? 'Complimenti! Hai vinto!'
+        ? `Complimenti! Hai vinto! Hai totalizzato ${score} punti.`
         : `Hai perso! Hai totalizzato ${score} punti.`;
-    return console.log(message);
+    scoreElement.innerText = '';
+    return messageField.innerText = message;
 }
 
 // Funzione per scoprire tutte le celle
@@ -69,17 +74,24 @@ const revealAllCell = (bombs) => {
 }
 
 
+
+//*-----------------------------------------
+//* SVOLGIMENTO
+//*-----------------------------------------
+
 // All'invio del form sul viene creata la griglia con un numero di celle variabile in base alla scelta dell'utente
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     grid.innerText = '';
+    messageField.innerText = '';
     play.innerText = 'Ricomincia';
 
     // Dati di partenza
     const selectedLevel = parseInt(level.value);
     let rows;
     let cols;
+    let numOfBombs = 2;
     let score = 0;
     scoreElement.innerText = score;
 
@@ -95,9 +107,11 @@ form.addEventListener('submit', (e) => {
     }
 
     const totalCells = rows * cols;
+    let maxPoints = totalCells - numOfBombs
+
 
     // Viene invocata la funzione per generare le bombe e i risultati vengono stampati in console
-    const bombs = createBombs(totalCells);
+    const bombs = createBombs(totalCells, numOfBombs);
     console.log("Numeri casuali generati:", bombs);
 
 
@@ -121,6 +135,12 @@ form.addEventListener('submit', (e) => {
                 revealAllCell(bombs);
             } else {
                 scoreElement.innerText = ++score;
+            }
+
+            // Verifico se l'utente ha vinto
+            if (score === maxPoints) {
+                endGame(true, score);
+                revealAllCell(bombs);
             }
         });
     }
